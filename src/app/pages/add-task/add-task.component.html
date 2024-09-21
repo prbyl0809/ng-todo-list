@@ -1,0 +1,21 @@
+<form (ngSubmit)="addTask()" #taskForm="ngForm" novalidate>
+    <label for="taskTitle">What would you like to do today?</label>
+    <input
+      [(ngModel)]="taskTitle"
+      name="taskTitle"
+      type="text"
+      placeholder="Add a new task"
+      id="taskTitle"
+      required
+      minlength="3"
+      #taskInput="ngModel"
+    />
+    
+    <div *ngIf="taskInput.invalid && taskInput.touched">
+      <p *ngIf="taskInput.errors?.['required']">Title is required!</p>
+      <p *ngIf="taskInput.errors?.['minlength']">The task name must be at least 3 characters long!</p>
+    </div>
+    
+    <button [disabled]="taskForm.invalid" type="submit">Add Task</button>
+  </form>
+  
