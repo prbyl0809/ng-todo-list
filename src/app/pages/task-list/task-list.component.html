@@ -1,17 +1,24 @@
 <div>
-    <h2>My To Do List</h2>
+  <h2>My To Do List</h2>
   
-    <ul>
-      <li *ngFor="let task of tasks$ | async">
-        <span [ngClass]="{ completed: task.completed }">{{ task.title }}</span>
-        <div class="btn-wrapper">
-          <button (click)="toggleTaskCompletion(task.id)">
-            {{ task.completed ? 'Undo' : 'Complete' }}
-          </button>
-          <button [routerLink]="['/edit', task.id]">Edit</button>
-          <button (click)="deleteTask(task.id)" [disabled]="task.completed">Delete</button>
-        </div>
-      </li>
-    </ul>
+  <div class="filter-wrapper">
+    <button class="filter-button" [ngClass]="{ selected: filter === 'all' }" (click)="setFilter('all')">All</button>
+    <button class="filter-button" [ngClass]="{ selected: filter === 'active' }" (click)="setFilter('active')">Active</button>
+    <button class="filter-button" [ngClass]="{ selected: filter === 'completed' }" (click)="setFilter('completed')">Completed</button>
   </div>
   
+  <h3>{{taskCount}} items</h3>
+
+  <ul>
+    <li *ngFor="let task of filteredTasks">
+      <span [ngClass]="{ completed: task.completed }">{{ task.title }}</span>
+      <div class="btn-wrapper">
+        <button class="task-button" (click)="toggleTaskCompletion(task.id)">
+          {{ task.completed ? 'Undo' : 'Complete' }}
+        </button>
+        <button class="task-button" [routerLink]="['/edit', task.id]">Edit</button>
+        <button class="task-button" (click)="deleteTask(task.id)" [disabled]="task.completed">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>
