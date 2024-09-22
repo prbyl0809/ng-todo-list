@@ -19,7 +19,6 @@ interface Task {
 })
 export class EditTaskComponent implements OnInit {
   private tasksSubject = new BehaviorSubject<Task[]>([]);
-  tasks$ = this.tasksSubject.asObservable();
   taskToEdit: Task | undefined;
 
   constructor(private route: ActivatedRoute, private router: Router) {}

@@ -20,23 +20,19 @@ type Filter = 'all' | 'active' | 'completed';
 })
 export class TaskListComponent implements OnInit {
   private tasksSubject = new BehaviorSubject<Task[]>([]);
-  tasks$ = this.tasksSubject.asObservable();
   filteredTasks: Task[] = [];
   filter: Filter = 'all';
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.loadTasksFromLocalStorage();
-    this.applyFilter();
   }
 
   private loadTasksFromLocalStorage() {
     const tasks = localStorage.getItem('tasks');
     if (tasks) {
       this.tasksSubject.next(JSON.parse(tasks));
-      console.log(this.tasksSubject.value.length)
-      console.log("Length: " + tasks.length);
       this.applyFilter();
     }
   }

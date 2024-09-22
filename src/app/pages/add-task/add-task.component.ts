@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, NgForm } from '@angular/forms';
 
 interface Task {
   id: number;
@@ -26,7 +26,7 @@ export class AddTaskComponent implements OnInit {
     this.loadTasksFromLocalStorage();
   }
 
-  addTask() {
+  addTask(taskForm: NgForm) {
     if (this.taskTitle.trim().length === 0) {
       return;
     }
@@ -35,7 +35,8 @@ export class AddTaskComponent implements OnInit {
     const updatedTasks = [...currentTasks, newTask];
     this.tasksSubject.next(updatedTasks);
     this.saveTasksToLocalStorage(updatedTasks);
-    this.taskTitle = ''; 
+    taskForm.resetForm();
+
   }
 
   private loadTasksFromLocalStorage() {

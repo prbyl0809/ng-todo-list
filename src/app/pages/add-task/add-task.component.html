@@ -1,4 +1,4 @@
-<form (ngSubmit)="addTask()" #taskForm="ngForm" novalidate>
+<form (ngSubmit)="addTask(taskForm)" #taskForm="ngForm" novalidate>
     <label for="taskTitle">What would you like to do today?</label>
     <input
       [(ngModel)]="taskTitle"
@@ -16,6 +16,6 @@
       <p *ngIf="taskInput.errors?.['minlength']">The task name must be at least 3 characters long!</p>
     </div>
     
-    <button [disabled]="taskForm.invalid" type="submit">Add Task</button>
+    <button type="submit">Add Task</button>
   </form>
   
